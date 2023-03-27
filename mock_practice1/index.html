@@ -57,6 +57,26 @@
             width: 40px;
             text-align: center;
         }
+        @media (min-width:300px) and (max-width:599px) {
+            #product_container{
+                display: grid;
+                grid-template-columns: repeat(1, 1fr);
+                grid-template-rows: auto;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+            }
+        }
+        @media (min-width:600px) and (max-width:1199px) {
+            #product_container{
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: auto;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+            }
+        }
     </style>
 </head>
 <body>
