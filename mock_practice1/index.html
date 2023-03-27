@@ -67,16 +67,17 @@
 
     <div id="filterAndSort">
 
-        <select name="" id="sort" onchange="sort()" >
+        <select name="" id="sorting" onchange="sort()" >
             <option value="">Sort by Price</option>
-            <option value="All">Show All</option>
-            <option value="H2L">High to Low</option>
-            <option value="L2H">Low to High</option>
+            <option value="desc">High to Low</option>
+            <option value="asc">Low to High</option>
         </select>
 
      <select name="" id="filterByCat" onchange="filterMyPro()">
+        <option value="">Filter By Category</option>
         <option value="kids">Kids</option>
         <option value="women">Women</option>
+        <option value="men">Men</option>
         <option value="homedecor">Homedecor</option>
      </select>
     </div>
@@ -90,12 +91,19 @@
     </div>
 
     <script>
-        let category;
+        let category ="";
         let data ;
         let page=1;
         let limit =12;
+        let sortVal = "";
        let getData = async () => {
-        let res = await fetch(`https://dbioz2ek0e.execute-api.ap-south-1.amazonaws.com/mockapi/get-products?page=${page}&limit=${limit}&category=${category}`);
+        let url;
+        if(sortVal != ""){
+           url =  `https://dbioz2ek0e.execute-api.ap-south-1.amazonaws.com/mockapi/get-products?page=${page}&limit=${limit}&filter=${category}&sort=price&order=${sortVal}`
+        }else{
+            url= `https://dbioz2ek0e.execute-api.ap-south-1.amazonaws.com/mockapi/get-products?page=${page}&limit=${limit}&filter=${category}`
+        }
+        let res = await fetch(url);
          data = await res.json();
         appendData(data.data)
         console.log(data.data)
@@ -138,58 +146,36 @@
         })
        }
 
-       async function filterMyPro(){
-        let filterProd = document.getElementById("filterByCat");
-        let temp = await data;
-        temp = temp.data;
-        if(filterProd.value === "kids"){
-               category = `kids`;
-               appendData(temp)
-        }else if(filterProd.value === "women"){
-            category = `women`;
-            appendData(temp)
-        }else if(filterProd.value === "homedecor"){
-            category = `homedecor`
-            appendData(temp)
-        }
-       }
+      function filterMyPro(){
+        let cat = document.getElementById("filterByCat").value;
+        category = cat
+        getData();
+      }
 
-       async function sort(){
-        let sortData = document.getElementById("sort").value;
-        let temp = await data;
-        temp = temp.data
-        if(sortData === "All"){
-            appendData(temp);
-        }else if(sortData === "H2L"){
-            temp.sort(function(a,b){
-               return b.price - a.price;
-            })
-            appendData(temp)
-        }else if(sortData === "L2H"){
-            temp.sort(function(a,b){
-                return a.price - b.price;
-            })
-            appendData(temp)
-        }
-       }
+      function sort(){
+        let sortPro = document.getElementById("sorting").value;
+        sortVal = sortPro;
+        getData();
+      }      
 
-       pagination();
-       function pagination(){
-        let currPage = document.getElementById("curr")
-       currPage.innerText = page
-      let previous = document.getElementById("prev");
-      previous.addEventListener("click" , () => {
-        page=page-1;
-        
-      });
-      let nextPage = document.getElementById("next");
-      nextPage.addEventListener("click" , () => {
-        page=page+1;
-        
-      })
-      appendData(data.data)
+       let prev = document.getElementById("prev") ;
+       let curr = document.getElementById("curr")
+       let next = document.getElementById("next");
+       prev.addEventListener("click" , () => {
+        page -= 1;
+        curr.innerText = page;
+        if(curr.innerHTML <= 1){
+             prev.disabled = true;
        }
-        
+        getData();
+       })
+        next.addEventListener("click" , () => {
+            page+= 1;
+            curr.innerText = page;
+            
+            getData();
+        })
+       curr.innerText = page;
        
     </script>
 </body>
