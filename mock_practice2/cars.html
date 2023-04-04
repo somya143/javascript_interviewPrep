@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+        #navbar{
+           width: 100%;
+           height: 50px;
+           display: flex;
+           justify-content: space-around;
+           align-items: center;
+           background-color: antiquewhite;
+           font-size: 20px;
+           color: black;
+        }
+       </style>
+</head>
+<body>
+    <nav id="navbar">
+        <a href="ad.html">Ad</a>
+        <a href="cars.html">Cars</a>
+        <a href="wishlist.html">WishList</a>
+    </nav>
+    <div id="container"></div>
+
+    <script>
+        let carUri = "https://json-server-dep.onrender.com/cars"
+        let getData = async() => {
+            let res = await fetch("https://json-server-dep.onrender.com/cars");
+            let data = await res.json();
+            append(data)
+            console.log(data);
+        }
+        getData();
+
+        function append(data){
+            let cont = document.getElementById("container");
+            cont.innerHTML = "";
+            data.forEach((el,i) => {
+                let box = document.createElement("div");
+                let box2= document.createElement("div");
+                let image = document.createElement("img");
+                image.src = "https://images.pexels.com/photos/170811/pexels-photo-170811.jpeg?auto=compress&cs=tinysrgb&w=600";
+                let brand = document.createElement("h3");
+                 brand.innerText = el.brand;
+
+                 let carType = document.createElement("h4");
+                 carType.innerText = el.type;
+
+                 let year = document.createElement("h3");
+                 year.innerText = el.year;
+
+                 let kmdriven = document.createElement("p");
+                 kmdriven.innerText = el.kmDriven;
+
+                 let desc = document.createElement("p");
+                 desc.innerText = el.desc;
+
+                 let price = document.createElement("p");
+                 price.innerText = el.price;
+
+                 let edit = document.createElement("i");
+                 edit.className = "fa-solid fa-pen-to-square";
+                 edit.addEventListener("click" , () => {
+                    updatePrc(el.id)
+                 })
+
+                 let del = document.createElement("div");
+                 del.innerText = "🗑";
+
+                 let wishlist = document.createElement('div');
+                 wishlist.innerText = "❤";
+
+                 box2.append(edit,del,wishlist);
+                 box.append(image,brand,year,carType,kmdriven,desc,price,box2);
+                 cont.append(box);
+            })
+        }
+
+        function updatePrc(id){
+            let newPrc = parseInt(prompt("Enter New Price"));
+            fetch(`https://json-server-dep.onrender.com/cars/${id}` , {
+                method : "PATCH",
+                body : JSON.stringify({price : newPrc}),
+                headers : {
+                    'Content-Type' : 'application/json'
+                }
+            }).then((res) => res.json())
+            .then((data) => {
+                console.log(data)
+                getData(carUri);
+            }).catch((err) => {
+                console.log(err.message)
+            })
+        }
+    </script>
+</body>
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+</html>
