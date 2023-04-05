@@ -24,6 +24,29 @@
        </style>
 </head>
 <body>
+    <div>
+        <select name="" id="sortByPrice">
+            <option value="">Sort by price</option>
+            <option value="asc">Price low to high</option>
+            <option value="desc">Price high to low</option>
+        </select>
+
+        <select name="" id="sortByKms">
+            <option value="">Sort by kms</option>
+            <option value="asc">low to high</option>
+            <option value="desc">high to low</option>
+        </select>
+        <select name="" id="filterByBrand">
+            <option value="">Filter by brand</option>
+            <option value="Tata">Tata</option>
+            <option value="Maruti">Maruti</option>
+            <option value="Honda">Honda</option>
+            <option value="Hyundai">Hyundai</option>
+            <option value="Ford">Ford</option>
+        </select>
+    </div>
+    
+
     <nav id="navbar">
         <a href="ad.html">Ad</a>
         <a href="cars.html">Cars</a>
@@ -32,14 +55,40 @@
     <div id="container"></div>
 
     <script>
-        let carUri = "https://json-server-dep.onrender.com/cars"
-        let getData = async() => {
-            let res = await fetch("https://json-server-dep.onrender.com/cars");
+
+        let carUri = "https://json-server-dep.onrender.com/cars";
+        let filter = document.getElementById("filterByBrand");
+        let ps = document.getElementById("sortByPrice");
+        let km = document.getElementById("sortByKms");
+
+        ps.addEventListener("change" , () => {
+            if(filter.value !== ""){
+              let uri = `https://json-server-dep.onrender.com/cars?brand=${filter.value}&_sort=price&_order=${ps.value}`
+              getData(uri)
+            }else{
+                let uri = `https://json-server-dep.onrender.com/cars?_sort=price&_order=${ps.value}`;
+                getData(uri)
+            }
+        });
+        
+        km.addEventListener("change" , () => {
+            if(filter.value !== ""){
+                let uri = `https://json-server-dep.onrender.com/cars?brand=${filter.value}&_sort=kms&_order=${km.value}`;
+                getData(uri)
+            }else{
+                let uri = `https://json-server-dep.onrender.com/cars?_sort=kms&_order=${km.value}`;
+                getData(uri)
+            }
+        })
+
+        
+        async function getData(carUri) {
+            let res = await fetch(carUri);
             let data = await res.json();
             append(data)
             console.log(data);
         }
-        getData();
+        getData(carUri);
 
         function append(data){
             let cont = document.getElementById("container");
@@ -58,14 +107,15 @@
                  let year = document.createElement("h3");
                  year.innerText = el.year;
 
-                 let kmdriven = document.createElement("p");
-                 kmdriven.innerText = el.kmDriven;
+                 let kms = document.createElement("p");
+                 kms.innerText = el.kms;
 
-                 let desc = document.createElement("p");
-                 desc.innerText = el.desc;
+                 let Description = document.createElement("p");
+                 Description.innerText = el.Description;
 
                  let price = document.createElement("p");
                  price.innerText = el.price;
+                 console.log(price)
 
                  let edit = document.createElement("i");
                  edit.className = "fa-solid fa-pen-to-square";
@@ -75,15 +125,25 @@
 
                  let del = document.createElement("div");
                  del.innerText = "🗑";
+                 del.style.cursor = "pointer"
+                 del.addEventListener("click" , () => {
+                    deleteCar(el.id);
+                 })
 
                  let wishlist = document.createElement('div');
                  wishlist.innerText = "❤";
+                 wishlist.style.cursor = "pointer"
+                 wishlist.addEventListener("click" , () => {
+                    addToWish(el)
+                 })
 
                  box2.append(edit,del,wishlist);
-                 box.append(image,brand,year,carType,kmdriven,desc,price,box2);
+                 box.append(image,brand,year,carType,kms,Description,price,box2);
                  cont.append(box);
             })
         }
+
+
 
         function updatePrc(id){
             let newPrc = parseInt(prompt("Enter New Price"));
@@ -101,6 +161,38 @@
                 console.log(err.message)
             })
         }
+
+        function deleteCar(id){
+            fetch(`https://json-server-dep.onrender.com/cars/${id}` , {
+                method : "DELETE",
+                headers : {
+                    'Content-Type' : 'application/json'
+                }
+            }).then((res) => {
+                res.json()
+            }).then((data) => {
+                console.log(data);
+                getData(carUri)
+            }).catch((err) => {
+                console.log(err.message)
+            })
+        }
+
+        function addToWish(car){
+            fetch(`https://json-server-dep.onrender.com/wishlisted_cars` , {
+                        method : "POST",
+                        body : JSON.stringify(car),
+                        headers: {
+                            'Content-Type' : 'application/json'
+                        }
+                    }).then((res) => res.json())
+                    .then((data) => {
+                        console.log(data)
+                        alert("Car Added to Wishlist");
+                    }).catch((err) => console.log(err.message)
+                    )
+        }
+       
     </script>
 </body>
 <link
