@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debounce</title>
+</head>
+<body>
+    <div>
+        <input type="text" placeholder="type something..." id="inp">
+        <button id="btn">click</button>
+        <h1 id="text">hi</h1>
+    </div>
+
+    <script>
+        let inp = document.getElementById("inp");
+        let butn = document.getElementById("btn");
+        let text = document.getElementById("text");
+        //console.log(text)
+
+        //text.innerHTML = inp.value;
+        let x;
+        let delay = 1000;
+        butn.addEventListener("click" , () => {
+
+            if(x){
+                clearTimeout()
+            }
+        x= setTimeout(() => {
+           text.innerHTML= inp.value
+        }, delay)
+        
+        })
+        
+    </script>
+</body>
+</html>

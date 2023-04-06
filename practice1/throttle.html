@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Throttle</title>
+</head>
+<body>
+    <div>
+        <h1 id="count"></h1>
+        <button id="btn">Click</button>
+    </div>
+
+    <script>
+         let wait = false;
+            let num = 1;
+            let count = document.getElementById("count");
+            let throttleBtn = document.getElementById("btn");
+            count.innerHTML = num;
+            throttleBtn.addEventListener("click" , () => {
+
+                throttler(() => {
+                    num = num + 1;
+                count.innerText = num;
+                })
+                
+
+            })
+        function throttler(cb , delay=5000){
+           if(wait){
+            return
+           }
+           cb();
+           wait = true;
+            setTimeout(() => {
+                wait = false
+            } , delay)
+        }
+    </script>
+</body>
+</html>
