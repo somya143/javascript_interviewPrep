@@ -22,7 +22,7 @@ export const authReducer = (state=initialState , {type , payload}) => {
             return {
                 ...state,
                 isLoading : false,
-                isError : true,
+                isError : false,
                 message : "Registration success"
             }
         }

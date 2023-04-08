@@ -1,11 +1,13 @@
-import { legacy_createStore , combineReducers , applyMiddleware , compose } from "redux"
+import { legacy_createStore,applyMiddleware,combineReducers,compose } from "redux";
 import thunk from "redux-thunk";
 import { authReducer } from "./auth/authReducer";
+import { petReducer } from "./pet/petReducer";
 
 const rootReducer = combineReducers({
-    auth : authReducer
+    auth : authReducer,
+    pet : petReducer
 });
 
-const createComposer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const createComposer = window.__REDUX_DEVTOOLs_EXTENSION_COMPOSE__ || compose;
 
 export const store = legacy_createStore(rootReducer , createComposer(applyMiddleware(thunk)))
