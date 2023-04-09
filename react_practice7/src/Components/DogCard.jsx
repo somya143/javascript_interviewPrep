@@ -5,7 +5,8 @@ import { useDispatch} from "react-redux";
 import { deleteDog } from '../redux/pet/petAction';
 import EditDogAge from './EditDogAge';
 
-const DogCard = ({dog}) => {
+
+const DogCard = ({ dog }) => {
     const dispatch = useDispatch();
   return (
     <Box w="100%">
