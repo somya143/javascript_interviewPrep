@@ -1,4 +1,4 @@
-import { getPetFailure, getPetLoading, getPetSuccess, petFailure, petLoading, petSuccess } from "./petActionTypes"
+import { deletePetFailure, deletePetLoading, deletePetSuccess, editPetFailure, editPetLoading, editPetSuccess, getPetFailure, getPetLoading, getPetSuccess, petFailure, petLoading, petSuccess } from "./petActionTypes"
 
 const initState = {
     isError : false,
@@ -42,7 +42,7 @@ export const petReducer = (state=initState , {type , payload}) => {
                 ...state,
                 isLoading : false,
                 isError : false,
-                pets : [...state.pet , payload]
+                pet : payload
             }
         }
         case getPetFailure : {
@@ -50,6 +50,52 @@ export const petReducer = (state=initState , {type , payload}) => {
                 ...state,
                 isLoading : false,
                 isError : true
+            }
+        }
+        case deletePetLoading : {
+            return {
+                ...state,
+                isLoading : true,
+                isError : false
+            }
+        }
+        case deletePetSuccess : {
+            let newPet = state.pet.filter((el) => el.id !== payload)
+            return {
+                ...state,
+                isError : false,
+                isLoading : false,
+                pet : newPet
+                 }
+        }
+        case deletePetFailure : {
+            return {
+                ...state,
+                isError : true,
+                isLoading : false
+            }
+        }
+        case editPetLoading : {
+            return {
+                ...state,
+                isLoading : true,
+                isError : false
+            }
+        }
+        case editPetSuccess : {
+            let editPet = state.pet.map((el) => el.id === payload.id? payload.data : el )
+            return {
+               ...state,
+               pet : editPet,
+               isLoading : false,
+               isError : false
+            }
+        }
+        case editPetFailure : {
+            return {
+                ...state,
+                isError : true,
+                isLoading: false
             }
         }
         default : return state
