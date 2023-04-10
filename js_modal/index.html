@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>modal</title>
+    <style>
+   #main{
+    border: 1px solid black;
+    width: 70%;
+    height: 500px;
+   }
+   #modal{
+    border: 10px solid red;
+    width: 50%;
+    margin: auto;
+    margin-top: 30px;
+    text-align: center;
+    
+   }
+   /* #modal{
+    display: none;
+   } */
+    </style>
+</head>
+<body>
+    <div id="main">
+         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. In, adipisci consequatur? Minus voluptate sit natus? Amet est, ad ullam cumque eveniet blanditiis impedit sequi error libero. Voluptates repudiandae omnis ducimus.....</p>
+        <button id="btn">open modal to know more....</button>
+        <div id="modal">
+           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus corrupti dolorem praesentium dolor accusantium sapiente. Totam dolorem quisquam, necessitatibus mollitia fugiat dolor non dignissimos, facere corporis rerum odio ipsa autem.
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores similique consectetur deserunt sunt officiis quaerat aut porro, minima no bis magnam atque ea at ullam commodi asperiores optio. Sunt, ipsam? Animi.</p> 
+            <button id="close_modal">Close</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("main")
+        .addEventListener("click" , () => {
+            alert("main clicked")
+        })
+      
+      let modal = document.getElementById("modal");
+        modal.addEventListener("click" , () => {
+            alert("modal clicked")
+        })
+
+        document.getElementById("btn")
+        .addEventListener("click" , () => {
+            modal.style.display = "block"
+        })
+        document.getElementById("close_modal")
+        .addEventListener("click" , () => {
+            alert("button clicked")
+            modal.style.display = "none"
+        })
+
+        
+    </script>
+</body>
+</html>
