@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Basic Learning</title>
+</head>
+<body>
+    <div id="form">
+        <input type="text" id="name" data-uppercase>
+        <input type="text" id="pan">
+        <input type="text" id="mobile">
+    </div>
+    <script>
+        //event delegation
+        document.getElementById("form")
+        .addEventListener("keyup" , (e) => {
+            if(e.target.dataset.uppercase !== undefined){
+                e.target.value= e.target.value.toUpperCase()
+            }
+        })
+
+//callback example
+let isOdd = (n) => {
+    return n%2!==0
+}
+ let evenOrOdd = (isNumOdd , num) => {
+    let oddNum = isNumOdd(num);
+    if(oddNum){
+        console.log(`The number ${num} is odd : ${oddNum}`)
+    }else{
+        console.log(`The number ${num} is not odd : ${oddNum}`)
+    }
+    
+ }
+ evenOrOdd(isOdd ,876575)
+
+ // higher order function:
+  let greet = (name) => {
+    return function greet_welcome(m){
+          console.log(`Hi ${name} welcome to ${m}`)
+    }
+  }
+  let greet_people = greet("somya");
+  greet_people("masai school");
+
+  //closure example
+  function init() {
+  var name = "Mozilla"; // name is a local variable created by init
+  function displayName() {
+    // displayName() is the inner function, that forms the closure
+    console.log(name); // use variable declared in the parent function
+  }
+  displayName();
+}
+init();
+
+    </script>   
+
+</body>
+</html>
