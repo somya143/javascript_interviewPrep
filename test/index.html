@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    async function post(){
+        let obj = {
+        email : "somya@gmail.com",
+        password: "somya"
+    }
+    let newEmail = ""
+    let post_Data = await fetch("knnnnnnnnnnnnnnnnnnksj" , {
+        method : "PATCH" ,
+        body : JSON.stringify({email : newEmail}),
+        headers : {
+            'COntent-Type' : 'application/json'
+        }
+    })
+    let data = await post_Data.json();
+    console.log(data)
+    }
+    
+</script>
+</html>
