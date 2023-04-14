@@ -18,9 +18,51 @@
             justify-content: space-around;
             align-items: center;
             background-color: aliceblue;
-            position: fixed;
-            z-index: 100;
         }
+        #query1{
+            border: 1px solid;
+            width: 30%;
+            height: 30px;
+            font-size: 17px;
+            border-radius: 7px;
+            padding-left: 15px;
+            padding: 15px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        #query2{
+            border: 1px solid;
+            width: 30%;
+            height: 30px;
+            font-size: 17px;
+            border-radius: 7px;
+            padding-left: 15px;
+            padding: 15px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        #game_container{
+            width: 100%;
+            height: auto;
+            display: grid;
+            grid-template-columns: repeat(4 , 1fr);
+            grid-template-rows: auto;
+            gap: 20px;
+            justify-content: center;
+            align-items: center;
+        }
+        #game_container>div>img{
+            width: 200px;
+            height: 200px;
+            margin-left: 70px;
+        }
+        #game_container>div>h2{
+            text-align: center;
+        }
+        #game_container>div>p{
+            text-align: center;
+        }
+
     </style>
 </head>
 <body>
@@ -29,7 +71,17 @@
         <h2><a href="game.html">Games Page</a></h2>
     </nav>
 
+    <div id="searchQuery">
+        <input type="date" id="query1" placeholder="Search..." oninput="SearchByYearOne()">
+        <input type="date" id="query2" placeholder="Search..." oninput="SearchByYearTwo()">
+    </div>
     <div id="game_container"></div>
+
+    <div id="pagination">
+        <button id="prev">Prev</button>
+        <span id="curr"></span>
+        <button id="next">Next</button>
+    </div>
 
     <script src="./scripts/games.js"></script>
 </body>
