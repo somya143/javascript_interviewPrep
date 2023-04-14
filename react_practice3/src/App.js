@@ -1,5 +1,7 @@
 import React from "react";
 import './App.css';
+import Pagination from "./components/Pagination";
+import TodoData from "./components/TodoData";
 
 let getData = async(page) => {
   try {
@@ -37,6 +39,21 @@ function App() {
     }
     
   }
+  let handlePagePrev = () => {
+    setPage(page-1)
+  }
+  let handlePageNext = () => {
+    setPage(page+1)
+  }
+  let handleDelete = (id) => {
+    let delTodo = post.filter((el) => el.id !== id);
+    setPost(delTodo);
+  }
+  let handleToggle = (id) => {
+    let toggleTodo = post.map((el) => (el.id === id? {...el, completed : !el.completed }: el)
+    )
+    setPost(toggleTodo)
+  }
   if(loading){
     <h1>...LOADING</h1>
   }
@@ -48,18 +65,20 @@ function App() {
       <ul>
       {
         post.map((el) => (
-           <li key={el.id}>
-            {el.id} -- {el.title}
-           </li>
+          <TodoData 
+          key={el.id}
+          id={el.id}
+          title={el.title}
+          handleDelete={handleDelete}
+          handleToggle={handleToggle}
+          completed={el.completed}
+          />
         ))
       }
       </ul>
 
-      <div>
-        <button disabled={page===1} onClick={() => setPage(page-1)}>PREV</button>
-        <span>{page}</span>
-        <button onClick={() => setPage(page+1)}>Next</button>
-        </div>      
+      <Pagination handlePagePrev={handlePagePrev} handlePageNext={handlePageNext} page={page} />
+           
     </div>
   );
 }
