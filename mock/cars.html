@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #cars-container {
+        width: 80%;
+        margin: auto;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
+      }
+      i {
+        margin: 0 20px;
+        cursor: pointer;
+        font-size: 20px;
+        color: black;
+      }
+      .car-card {
+        text-align: center;
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        padding: 10px;
+        border-radius: 15px;
+      }
+      #nav {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+      }
+      #nav2 {
+        display: flex;
+        width: 80%;
+        margin: 20px auto;
+        justify-content: space-between;
+      }
+      img {
+        height: 150px;
+        width: 150px;
+      }
+      @media all and(max-width:900px) {
+        #cars-container {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media all and(max-width:900px) {
+        #cars-container {
+          grid-template-columns: repeat(1, 1fr);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="nav">
+      <div><a href="cars.html"> Go to cars page</a></div>
+      <div>
+        <a href="wishlist.html">Wishlist</a>
+      </div>
+      <div>
+        <a href="./ad.html">Post Ads</a>
+      </div>
+    </div>
+    <div id="nav2">
+      <select id="p-s">
+        <option value="">Sort by Price</option>
+        <option value="asc">Low to high</option>
+        <option value="desc">High to Low</option>
+      </select>
+      <select id="k-s">
+        <option value="">Sort by KMs Driven</option>
+        <option value="asc">Low to high</option>
+        <option value="desc">High to Low</option>
+      </select>
+      <select id="filter">
+        <option value="">Filter by Brand</option>
+        <option value="Tata">Tata</option>
+        <option value="Honda">Honda</option>
+        <option value="Maruti">Maruti</option>
+      </select>
+    </div>
+    <div id="cars-container"></div>
+  </body>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+  <script src="cars.js"></script>
+</html>
