@@ -10,13 +10,34 @@ let close = document.getElementById("closeBtn")
   hamburger.style.display = "block";
 })
 
+let page=1;
+let limit=30;
 let getData = async() => {
-    let res = await fetch(`https://api.thecatapi.com/v1/breeds`);
+    let res = await fetch(`https://api.thecatapi.com/v1/breeds?page=${page}&limit=${limit}`);
     let data = await res.json();
     console.log(data)
     appendData(data)
 }
 getData();
+
+let prev = document.getElementById("prev");
+let curr = document.getElementById("curr");
+let next = document.getElementById("next");
+prev.addEventListener("click" , () => {
+page-= 1;
+curr.innerHTML = page;
+if(curr.innerHTML === 1){
+  prev.disabled = true;
+}
+getData()
+})
+
+next.addEventListener("click" , () => {
+page+=1;
+curr.innerHTML=page
+getData()
+})
+curr.innerHTML=page
 
 let appendData = (data) => {
     let container = document.getElementById("container");
