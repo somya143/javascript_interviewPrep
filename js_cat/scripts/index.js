@@ -64,6 +64,9 @@ let appendData = (data) => {
     wikipedia.textContent = el.wikipedia_url;
     let btn = document.createElement("button");
     btn.textContent = "View Images";
+    btn.addEventListener("click" , () => {
+      window.location.href = "cart.html"
+    })
     box2.append(description,origin,temperament,life,wikipedia,btn)
     box.append(image,breed,box2);
     container.append(box);

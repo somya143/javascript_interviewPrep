@@ -1,0 +1,21 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+#cont{
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 0px;
+}
+#cont>div{
+    border: 1px solid ;
+    width: 250px;
+    height: 250px;
+}
+#cont>div>img{
+    width: 100%;
+    height: 80%;
+}

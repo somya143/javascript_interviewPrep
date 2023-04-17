@@ -7,6 +7,7 @@ let getImages = async() => {
 }
 getImages()
 
+let arr = JSON.parse(localStorage.getItem("cat")) || [];
 let appendImages = (data) => {
     let cont = document.getElementById("cont");
     cont.innerHTML = "";
@@ -14,7 +15,15 @@ let appendImages = (data) => {
         let box = document.createElement("div");
         let images = document.createElement('img');
         images.src = el.url;
-        box.append(images);
+        let addImage = document.createElement("div");
+        addImage.textContent = "❤";
+        addImage.style.cursor = "pointer";
+        addImage.addEventListener("click" , () => {
+        arr.push(el);
+        localStorage.setItem("cat" , JSON.stringify(arr));
+        })
+
+        box.append(images,addImage);
         cont.append(box);
     })
 }
