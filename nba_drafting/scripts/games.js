@@ -95,9 +95,7 @@ async function SearchByYearTwo(){
     }
 }
 
-for(var i=0; i<10; i++){
 
-}console.log(i)
 
 function appendGame(data){
     let cont = document.getElementById("game_container");
