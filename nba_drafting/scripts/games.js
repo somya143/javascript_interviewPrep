@@ -1,12 +1,56 @@
 let page = 1;
+let filtByYear="";
+let data;
+let prev= document.getElementById("prev");
+let curr = document.getElementById("curr");
+curr.innerHTML = page;
+prev.addEventListener("click" , ()=> {
+page= page-1;
+curr.innerHTML = page;
+if(curr.innerHTML <= 1){
+    prev.disabled = true;
+}
+getGameData()
+});
+
+let next = document.getElementById("next");
+next.addEventListener("click" , () => {
+    page= page+1;
+    curr.innerHTML= page
+    getGameData()
+})
+
 let getGameData = async() => {
-let res = await fetch(`https://www.balldontlie.io/api/v1/games?page=${page}&per_page=10`);
-let data = await res.json();
+    if(filtByYear !== ""){
+        url = `https://www.balldontlie.io/api/v1/games?page=${page}&per_page=10&filter=${filtByYear}`
+    }else{
+        url = `https://www.balldontlie.io/api/v1/games?page=${page}&per_page=10`
+    }
+let res = await fetch(url);
+ data = await res.json();
 data = data.data;
 console.log(data)
 appendGame(data)
 }
 getGameData();
+
+let filter = document.getElementById("filter");
+filter.addEventListener("change" , () => {
+    filtByYear = filter.value;
+    console.log(filtByYear)
+    if(filtByYear === "All"){
+        getGameData(data)
+    }else{
+        let filtered = data.filter(el => {
+           return el.season == filtByYear
+        })
+        getGameData(filtered)
+    }
+    // page=1;
+    // curr.innerHTML = page;
+    // getGameData();
+})
+
 
 async function SearchByYearOne(){
     let query1= document.getElementById("query1").value;
@@ -51,24 +95,9 @@ async function SearchByYearTwo(){
     }
 }
 
-let prev= document.getElementById("prev");
-let curr = document.getElementById("curr");
-curr.innerHTML = page;
-prev.addEventListener("click" , ()=> {
-page= page-1;
-curr.innerHTML = page;
-if(curr.innerHTML <= 1){
-    prev.disabled = true;
-}
-getGameData()
-});
+for(var i=0; i<10; i++){
 
-let next = document.getElementById("next");
-next.addEventListener("click" , () => {
-    page= page+1;
-    curr.innerHTML= page
-    getGameData()
-})
+}console.log(i)
 
 function appendGame(data){
     let cont = document.getElementById("game_container");
